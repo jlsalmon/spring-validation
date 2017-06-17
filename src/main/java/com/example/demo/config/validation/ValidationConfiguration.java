@@ -19,7 +19,7 @@ public class ValidationConfiguration {
     private final ApplicationContext context;
 
     @Bean
-    public Validator compositeValidator() {
+    public CompositeValidator compositeValidator() {
         CompositeValidator composite = new CompositeValidator();
 
         // Register the built-in bean validator (jsr303)

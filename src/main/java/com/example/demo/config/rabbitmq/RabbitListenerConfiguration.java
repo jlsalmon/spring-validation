@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.handler.annotation.support.DefaultMessageHandlerMethodFactory;
-import org.springframework.validation.Validator;
 
 /**
  * @author Justin Lewis Salmon
@@ -22,7 +21,7 @@ import org.springframework.validation.Validator;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class RabbitListenerConfiguration implements RabbitListenerConfigurer {
 
-    private final Validator compositeValidator;
+    private final CompositeValidator compositeValidator;
 
     // Enable JSON
     @Bean
