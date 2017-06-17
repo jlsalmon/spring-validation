@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
+import static java.util.stream.Collectors.toList;
+
 /**
  * @author Justin Lewis Salmon
  */
@@ -26,11 +28,9 @@ public class ValidationConfiguration {
         composite.addValidator(validatorFactoryBean);
 
         // Register custom validators
-        context.getBeansOfType(Validator.class).values().forEach(validator -> {
-            if (!validator.getClass().getName().startsWith("org.springframework")) {
-                composite.addValidator(validator);
-            }
-        });
+        composite.addValidators(context.getBeansOfType(Validator.class).values().stream()
+            .filter(validator -> validator.getClass().getName().startsWith("org.springframework"))
+            .collect(toList()));
 
         return composite;
     }

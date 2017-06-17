@@ -22,32 +22,33 @@ public class CompositeValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        for (Validator v : validators) {
-            if (v.supports(clazz)) {
-                return true;
-            }
-        }
-        return false;
+        return validators.stream().anyMatch(v -> v.supports(clazz));
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        for (Validator v : validators) {
-            if (v.supports(target.getClass())) {
-                try {
-                    v.validate(target, errors);
-                } catch (Exception e) {
-                    throw new MessageConversionException("Exception thrown from validator " + v.getClass(), e);
-                }
+        for (Validator validator : validators) {
+            if (!validator.supports(target.getClass())) {
+                continue;
+            }
 
-                if (errors.getErrorCount() > 0) {
-                    return;
-                }
+            try {
+                validator.validate(target, errors);
+            } catch (Exception e) {
+                throw new MessageConversionException("Exception thrown from validator " + validator.getClass(), e);
+            }
+
+            if (errors.getErrorCount() > 0) {
+                return;
             }
         }
     }
 
     void addValidator(Validator validator) {
         this.validators.add(validator);
+    }
+
+    void addValidators(List<Validator> validators) {
+        this.validators.addAll(validators);
     }
 }
