@@ -20,6 +20,8 @@ public class CustomErrorAttributes extends DefaultErrorAttributes {
     @Override
     public Map<String, Object> getErrorAttributes(RequestAttributes requestAttributes, boolean b) {
         Map<String, Object> attributes = super.getErrorAttributes(requestAttributes, b);
+
+        // Remove the exception as it could potentially be sensitive
         attributes.remove("exception");
 
         if (attributes.containsKey("errors") && getError(requestAttributes) instanceof org.springframework.web.bind.MethodArgumentNotValidException) {
