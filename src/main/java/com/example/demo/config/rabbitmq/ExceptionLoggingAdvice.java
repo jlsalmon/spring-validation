@@ -20,7 +20,7 @@ public class ExceptionLoggingAdvice implements MethodInterceptor {
         } catch (Exception e) {
             if (e.getCause() instanceof MethodArgumentNotValidException) {
                 log.warn(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(
-                    ErrorUtils.transformErrors(((MethodArgumentNotValidException) e.getCause()).getBindingResult().getFieldErrors())));
+                    ErrorUtils.remapErrors(((MethodArgumentNotValidException) e.getCause()).getBindingResult().getFieldErrors())));
             }
 
             throw e;

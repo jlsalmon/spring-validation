@@ -9,6 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * An extended version of {@link DefaultErrorAttributes} that customises the
+ * error attributes, namely remapping {@link FieldError}s to {@link Error}s
+ * to produce a cleaner output.
+ *
  * @author Justin Lewis Salmon
  */
 public class CustomErrorAttributes extends DefaultErrorAttributes {
@@ -20,7 +24,7 @@ public class CustomErrorAttributes extends DefaultErrorAttributes {
 
         if (attributes.containsKey("errors") && getError(requestAttributes) instanceof org.springframework.web.bind.MethodArgumentNotValidException) {
             attributes.put("errors", ErrorUtils
-                .transformErrors((List<FieldError>) attributes.get("errors")));
+                .remapErrors((List<FieldError>) attributes.get("errors")));
         }
 
         return attributes;

@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
+ * Used to render error messages in validation failure responses.
+ *
  * @author Justin Lewis Salmon
  */
 @Data

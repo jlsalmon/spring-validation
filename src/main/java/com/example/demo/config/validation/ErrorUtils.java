@@ -10,7 +10,15 @@ import java.util.List;
  */
 public class ErrorUtils {
 
-    public static List<Error> transformErrors(List<FieldError> fieldErrors) {
+    /**
+     * Remap a list of {@link FieldError} into a list of {@link Error}.
+     *
+     * This is used to customise and slim down the error representation.
+     *
+     * @param fieldErrors the list of {@link FieldError} to map
+     * @return a list of {@link Error} remapped from the input
+     */
+    public static List<Error> remapErrors(List<FieldError> fieldErrors) {
         List<Error> errors = new ArrayList<>();
 
         for (FieldError error : fieldErrors) {

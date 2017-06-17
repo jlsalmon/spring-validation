@@ -18,5 +18,4 @@ public class DemoListener {
     public void listener(@Valid @Payload Pojo pojo) {
         log.info(pojo.toString());
     }
-
 }

@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Special implementation of a {@link Validator} that delegates to nested
+ * validators to do the lifting. The validators will be called in order; if any
+ * reports an error, the validation will be stopped.
+ *
  * @author Justin Lewis Salmon
  */
 @Slf4j
@@ -43,7 +47,7 @@ public class CompositeValidator implements Validator {
         }
     }
 
-    public void addValidator(Validator validator) {
+    void addValidator(Validator validator) {
         this.validators.add(validator);
     }
 }
